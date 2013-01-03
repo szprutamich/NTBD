@@ -1,5 +1,6 @@
 package ntbd.projekt.encje;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Przystanek {
@@ -38,5 +39,12 @@ public class Przystanek {
 
     public void setPolaczenia(Set<Polaczenie> polaczenia) {
         this.polaczenia = polaczenia;
+    }
+    
+    public void addPolaczenie(Polaczenie p) {
+        if (polaczenia == null) {
+            polaczenia = new HashSet<Polaczenie>();
+        }
+        polaczenia.add(p);
     }
 }

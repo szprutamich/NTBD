@@ -1,5 +1,6 @@
 package ntbd.projekt.encje;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Pociag {
@@ -56,5 +57,12 @@ public class Pociag {
 
     public void setWagony(Set<Wagon> wagony) {
         this.wagony = wagony;
+    }
+
+    public void addWagon(Wagon w) {
+        if (wagony == null) {
+            wagony = new HashSet<Wagon>();
+        }
+        wagony.add(w);
     }
 }

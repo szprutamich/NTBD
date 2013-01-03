@@ -65,4 +65,18 @@ public class Polaczenie {
         }
         konduktorzy.add(k);
     }
+
+    public void addPrzystanek(Przystanek p) {
+        if (przystanki == null) {
+            przystanki = new HashSet<Przystanek>();
+        }
+        przystanki.add(p);
+    }
+
+    public void addPociag(Pociag p) {
+        if (pociagi == null) {
+            pociagi = new HashSet<Pociag>();
+        }
+        pociagi.add(p);
+    }
 }
