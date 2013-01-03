@@ -1,0 +1,19 @@
+NTBD Employee using Ant
+==============================
+
+1. Create the project
+   a) install datanucles-accesspplatform-rdmms
+   b) copy ntbs-employee folder to the main datanucles folder
+
+2. Startup the database server
+   a) create folder /data
+   b) run Server (./tools/runServer.bat, check hsqldb.jar lib path if reqd)
+   c) run Manager (./tools/runManager.bat, check hsqldb.jar lib path if reqd)
+
+3. run the commands
+   a). "ant compile" - compiles the source code
+   b). "ant enhance" - enhances the classes
+   c). "ant createschema" - creates the tables in the datastore
+   d). "ant create" - creates objects
+   e). "ant query" - lists objects
+   f). "ant deleteschema" - deletes the tables in the datastore (if reqd)
