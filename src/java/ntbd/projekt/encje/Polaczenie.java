@@ -79,4 +79,8 @@ public class Polaczenie {
         }
         pociagi.add(p);
     }
+
+    public String toString() {
+        return String.format("Polaczenie %s, z %s do %s", typ, skad, dokad);
+    }
 }

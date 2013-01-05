@@ -3,11 +3,11 @@ package ntbd.projekt.encje;
 import java.util.Date;
 
 public class Osoba {
-    private String imie;
-    private String nazwisko;
-    private String pesel;
-    private Date dataUrodzenia;
-    private Adres adres;
+    protected String imie;
+    protected String nazwisko;
+    protected String pesel;
+    protected Date dataUrodzenia;
+    protected Adres adres;
 
     public String getImie() {
         return imie;

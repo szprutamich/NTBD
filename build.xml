@@ -4,7 +4,7 @@ tutorial build
 ===================================================================
 -->
 <project
-    name="tutorial"
+    name="NTBD Projekt"
     default="compile" >
 
     <!-- environment -->
@@ -23,7 +23,7 @@ tutorial build
 
     <property
         name="Name"
-        value="tutorial" />
+        value="NTBD Projekt" />
 
     <property
         name="name"
@@ -31,7 +31,7 @@ tutorial build
 
     <property
         name="version"
-        value="1.2" />
+        value="1.0" />
 
     <!-- project workspace directories -->
 
@@ -290,28 +290,26 @@ tutorial build
     <!-- Create -->
 
     <target
-        name="wypelnij" >
+        name="create"
+        description="Create objects" >
 
         <java
-            classname="ntbd.projekt.WypelnijDane"
+            classname="ntbd.test.CreateEmp"
             classpathref="lib.classpath"
             fork="true" />
     </target>
 
-   <!--
-    <target name="queries" >
+    <target
+        name="zapytanie"
+        description="Wszystkie rekordy" >
 
         <java
-            classname="ntbd.extension.Queries"
+            classname="ntbd.projekt.Zapytania"
             classpathref="lib.classpath"
             fork="true" >
-
-            <arg value="${type}" />
-            <arg value="${char}" />
-            <arg value="${string}" />
-            <arg value="${l1}" />
-            <arg value="${l2}" />
+        	
+        	<arg value="${type}" />
         </java>
     </target>
--->
+	
 </project>

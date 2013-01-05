@@ -40,11 +40,15 @@ public class Przystanek {
     public void setPolaczenia(Set<Polaczenie> polaczenia) {
         this.polaczenia = polaczenia;
     }
-    
+
     public void addPolaczenie(Polaczenie p) {
         if (polaczenia == null) {
             polaczenia = new HashSet<Polaczenie>();
         }
         polaczenia.add(p);
+    }
+
+    public String toString() {
+        return String.format("%s w %s, numer: %d", nazwa, miasto, numer);
     }
 }

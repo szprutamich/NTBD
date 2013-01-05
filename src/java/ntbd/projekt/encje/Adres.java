@@ -67,11 +67,16 @@ public class Adres {
     public void setOsoby(Set<Osoba> osoby) {
         this.osoby = osoby;
     }
-    
+
     public void addOsoba(Osoba o) {
         if (osoby == null) {
             osoby = new HashSet<Osoba>();
         }
         osoby.add(o);
+    }
+
+    public String toString() {
+        return String.format("%s, ul. %s %s/%s, %s %s", miejscowosc, ulica,
+                nrDomu, nrMieszkania, kod, poczta);
     }
 }

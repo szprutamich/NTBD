@@ -55,4 +55,10 @@ public class Lokomotywa {
     public void setPociag(Pociag pociag) {
         this.pociag = pociag;
     }
+
+    public String toString() {
+        return String.format(
+                "Lokomotywa %s, predkosc: %d, moc: %d, rok produkcji: %d",
+                typ, predkoscMax, moc, rokProdukcji);
+    }
 }

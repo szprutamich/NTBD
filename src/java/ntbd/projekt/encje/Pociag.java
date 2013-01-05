@@ -65,4 +65,9 @@ public class Pociag {
         }
         wagony.add(w);
     }
+
+    public String toString() {
+        return String.format("Pociag: %s, firma: %s, numer: %d", typ, firma,
+                numer);
+    }
 }
