@@ -334,6 +334,24 @@ tutorial build
         </java>
     </target>
 	
+	<target name="stare" >
+
+        <java
+            classname="ntbd.projekt.zestawienia.stare_pociagi"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>
+	
+	<target name="przez_miasto" >
+
+        <java
+            classname="ntbd.projekt.zestawienia.przez_miasto"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>
+	
    <!--
     <target name="queries" >
 
