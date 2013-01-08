@@ -348,6 +348,15 @@ tutorial build
         </java>
     </target>
 	
+	<target name="dodaj_pol" >
+
+        <java
+            classname="ntbd.projekt.przyp_uz.dodaj_polaczenie"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>
+	
 	<target name="stare" >
 
         <java

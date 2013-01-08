@@ -43,7 +43,7 @@ public class stare_pociagi {
       tx = pm.currentTransaction();
         tx.begin();
         Query query = pm.newQuery(Pociag.class);
-		query.setFilter("lokomotywa.rokProdukcji < :data");
+		query.setFilter("lokomotywa.rokProdukcji < :data && (wagony.cointains(w) && w.rodzaj != 'towarowy')");
         List<Pociag> wynik = (List<Pociag>) query.execute(data);
         System.out.println();
         tx.commit();
