@@ -168,9 +168,9 @@ public class Rozszerzenie {
         int iloscLokomotyw = ilosc;
         int iloscMotorniczych = ilosc;
         int iloscPociagow = ilosc;
-        int iloscPolaczen = ilosc;
-        int iloscPrzystankow = ilosc;
-        int iloscWagonow = ilosc;
+        int iloscPolaczen = ilosc / 5;
+        int iloscPrzystankow = ilosc * 5;
+        int iloscWagonow = ilosc * 5;
 
         for (int i = 0; i < iloscAdresow; i++) {
             String miejscowosc = miejscowosci[rand.nextInt(miejscowosci.length)];
@@ -273,27 +273,51 @@ public class Rozszerzenie {
 
             wagony.add(w);
         }
-        
-        for (Konduktor k : konduktorzy) {
-            Adres a = adresy.get(rand.nextInt(adresy.size()));
-            k.setAdres(a);
-            a.addOsoba(k);
-            
-            Polaczenie p = polaczenia.get(rand.nextInt(polaczenia.size()));
-            // do 10 polaczen
-            int ile = rand.nextInt(10);
-            for (int i = 0; i <ile; i++) {
-                k.addPolaczenie(p);
-                p.addKonduktor(k);
+
+        for (int i = 0; i < konduktorzy.size(); i++) {
+            konduktorzy.get(i).setAdres(adresy.get(i));
+            adresy.get(i).addOsoba(konduktorzy.get(i));
+        }
+
+        for (int i = 0; i < motorniczowie.size(); i++) {
+            motorniczowie.get(i).setAdres(adresy.get(i));
+            adresy.get(i).addOsoba(motorniczowie.get(i));
+
+            motorniczowie.get(i).setLokomotywa(lokomotywy.get(i));
+            lokomotywy.get(i).setMotorniczy(motorniczowie.get(i));
+        }
+
+        for (int i = 0; i < lokomotywy.size(); i++) {
+            lokomotywy.get(i).setPociag(pociagi.get(i));
+            pociagi.get(i).setLokomotywa(lokomotywy.get(i));
+        }
+
+        for (int i = 0; i < polaczenia.size(); i++) {
+            for (int j = 0; j < 5; j++) {
+                polaczenia.get(i).addPociag(pociagi.get((i * 5) + j));
+                pociagi.get((i * 5) + j).setPolaczenie(polaczenia.get(i));
             }
-            
+        }
+
+        for (int i = 0; i < pociagi.size(); i++) {
+            for (int j = 0; j < 5; j++) {
+                pociagi.get(i).addWagon(wagony.get((i * 5) + j));
+                wagony.get((i * 5) + j).setPociag(pociagi.get(i));
+            }
         }
         
-        for (Motorniczy m : motorniczowie) {
-            Adres a = adresy.get(rand.nextInt(adresy.size()));
-            m.setAdres(a);
-            a.addOsoba(m);
+        for (int i = 0; i < polaczenia.size(); i++) {
+            for (int j = 0; j < 5; j++) {
+                polaczenia.get(i).addKonduktor(konduktorzy.get((i * 5) + j));                
+                konduktorzy.get((i * 5)+j).addPolaczenie(polaczenia.get(i));
+                polaczenia.get(i).addPrzystanek(przystanki.get((i * 5) + j));
+                przystanki.get((i * 5)+j).addPolaczenie(polaczenia.get(i));
+            }
         }
+
+        System.out.println("Tworzenie " + iloscWagonow + " wagonow.");
+        pm.makePersistentAll(wagony);
+        System.out.println("Utworzono " + iloscWagonow + " wagonow.");
 
         System.out.println("Tworzenie " + iloscAdresow + " adresow.");
         pm.makePersistentAll(adresy);
@@ -311,7 +335,7 @@ public class Rozszerzenie {
         pm.makePersistentAll(motorniczowie);
         System.out.println("Utworzono " + iloscMotorniczych + " motorniczych.");
 
-        System.out.println("Tworzenie " + iloscPociagow + " pocisgow.");
+        System.out.println("Tworzenie " + iloscPociagow + " pociagow.");
         pm.makePersistentAll(pociagi);
         System.out.println("Utworzono " + iloscPociagow + " pociagow.");
 
@@ -322,11 +346,6 @@ public class Rozszerzenie {
         System.out.println("Tworzenie " + iloscPrzystankow + " przystankow.");
         pm.makePersistentAll(przystanki);
         System.out.println("Utworzono " + iloscPrzystankow + " przystankow.");
-
-        System.out.println("Tworzenie " + iloscWagonow + " wagonow.");
-        pm.makePersistentAll(wagony);
-        System.out.println("Utworzono " + iloscWagonow + " wagonow.");
-
     }
 
     protected PersistenceManager getPm() throws IOException {

@@ -20,4 +20,8 @@ public class Motorniczy extends Osoba {
         this.lokomotywa = lokomotywa;
     }
 
+    public String toString() {
+        return String.format("%s %s, uprawnienia: %s,  pesel: %s, ur. %s",
+                nazwisko, imie, uprawnienia, pesel, dataUrodzenia);
+    }
 }

@@ -46,4 +46,9 @@ public class Wagon {
     public void setPociag(Pociag pociag) {
         this.pociag = pociag;
     }
+
+    public String toString() {
+        return String.format("Wagon %s, numer: %d, maksymalne obciazenie: %d",
+                rodzaj, numer, maxObciazenie);
+    }
 }
