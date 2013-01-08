@@ -298,6 +298,42 @@ tutorial build
             fork="true" />
     </target>
 
+	<target name="dodaj_poc" >
+
+        <java
+            classname="ntbd.projekt.przyp_uz.dodaj_pociag"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>
+	
+	<target name="usun_poc" >
+
+        <java
+            classname="ntbd.projekt.przyp_uz.usun_pociag"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>
+	
+	<target name="usun_em" >
+
+        <java
+            classname="ntbd.projekt.przyp_uz.usun_emerytow"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>
+	
+	<target name="zmiana_upr" >
+
+        <java
+            classname="ntbd.projekt.przyp_uz.zmiana_uprawnien"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>
+	
    <!--
     <target name="queries" >
 
