@@ -374,4 +374,22 @@ tutorial build
             fork="true" >
         </java>
     </target>	
+	
+	<target name="mot_na_tra" >
+
+        <java
+            classname="ntbd.projekt.zestawienia.motorniczy_na_trasie"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>
+
+	<target name="kon_miesz_tra" >
+
+        <java
+            classname="ntbd.projekt.zestawienia.konduktorzy_mieszkajacy_na_trasie"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>		
 </project>
