@@ -167,7 +167,7 @@ public class Rozszerzenie {
         int iloscKonduktorow = ilosc;
         int iloscLokomotyw = ilosc;
         int iloscMotorniczych = ilosc;
-        int iloscPociagow = ilosc;
+        int iloscPociagow = ilosc + 100;
         int iloscPolaczen = ilosc / 5;
         int iloscPrzystankow = ilosc * 5;
         int iloscWagonow = ilosc * 5;
@@ -192,7 +192,7 @@ public class Rozszerzenie {
                 pesel += rand.nextInt(10);
             }
 
-            c.set(rand.nextInt(50) + 1940, rand.nextInt(12) + 1,
+            c.set(rand.nextInt(50) + 1935, rand.nextInt(12) + 1,
                     rand.nextInt(28) + 1);
             Date data = c.getTime();
 
@@ -221,7 +221,7 @@ public class Rozszerzenie {
                 pesel += rand.nextInt(10);
             }
 
-            c.set(rand.nextInt(50) + 1940, rand.nextInt(12) + 1,
+            c.set(rand.nextInt(50) + 1935, rand.nextInt(12) + 1,
                     rand.nextInt(28) + 1);
             Date data = c.getTime();
 
@@ -287,7 +287,7 @@ public class Rozszerzenie {
             lokomotywy.get(i).setMotorniczy(motorniczowie.get(i));
         }
 
-        for (int i = 0; i < lokomotywy.size(); i++) {
+        for (int i = 0; i < lokomotywy.size() * 0.9; i++) {
             lokomotywy.get(i).setPociag(pociagi.get(i));
             pociagi.get(i).setLokomotywa(lokomotywy.get(i));
         }
@@ -299,19 +299,19 @@ public class Rozszerzenie {
             }
         }
 
-        for (int i = 0; i < pociagi.size(); i++) {
+        for (int i = 0; i < pociagi.size() - 100; i++) {
             for (int j = 0; j < 5; j++) {
                 pociagi.get(i).addWagon(wagony.get((i * 5) + j));
                 wagony.get((i * 5) + j).setPociag(pociagi.get(i));
             }
         }
-        
+
         for (int i = 0; i < polaczenia.size(); i++) {
             for (int j = 0; j < 5; j++) {
-                polaczenia.get(i).addKonduktor(konduktorzy.get((i * 5) + j));                
-                konduktorzy.get((i * 5)+j).addPolaczenie(polaczenia.get(i));
+                polaczenia.get(i).addKonduktor(konduktorzy.get((i * 5) + j));
+                konduktorzy.get((i * 5) + j).addPolaczenie(polaczenia.get(i));
                 polaczenia.get(i).addPrzystanek(przystanki.get((i * 5) + j));
-                przystanki.get((i * 5)+j).addPolaczenie(polaczenia.get(i));
+                przystanki.get((i * 5) + j).addPolaczenie(polaczenia.get(i));
             }
         }
 

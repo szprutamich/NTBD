@@ -1,8 +1,3 @@
-<!--
-===================================================================
-tutorial build
-===================================================================
--->
 <project
     name="NTBD Projekt"
     default="compile" >
@@ -290,11 +285,11 @@ tutorial build
     <!-- Create -->
 
     <target
-        name="create"
-        description="Create objects" >
+        name="wypelnij"
+        description="Stwórz obiekty" >
 
         <java
-            classname="ntbd.test.CreateEmp"
+            classname="ntbd.projekt.WypelnijDane"
             classpathref="lib.classpath"
             fork="true" />
     </target>
@@ -312,84 +307,93 @@ tutorial build
         </java>
     </target>
 	
-	<target name="dodaj_poc" >
+	<target name="pu1" >
 
         <java
-            classname="ntbd.projekt.przyp_uz.dodaj_pociag"
+            classname="ntbd.projekt.przypadki.DodajPociag"
             classpathref="lib.classpath"
             fork="true" >
         </java>
     </target>
 	
-	<target name="usun_poc" >
+	<target name="pu2" >
 
         <java
-            classname="ntbd.projekt.przyp_uz.usun_pociag"
+            classname="ntbd.projekt.przypadki.DodajPolaczenie"
             classpathref="lib.classpath"
             fork="true" >
         </java>
     </target>
 	
-	<target name="usun_em" >
+	<target name="pu3" >
 
         <java
-            classname="ntbd.projekt.przyp_uz.usun_emerytow"
+            classname="ntbd.projekt.przypadki.UsunEmerytow"
             classpathref="lib.classpath"
             fork="true" >
         </java>
     </target>
 	
-	<target name="zmiana_upr" >
+	<target name="pu4" >
 
         <java
-            classname="ntbd.projekt.przyp_uz.zmiana_uprawnien"
+            classname="ntbd.projekt.przypadki.UsunPociag"
             classpathref="lib.classpath"
             fork="true" >
         </java>
     </target>
 	
-	<target name="dodaj_pol" >
+	<target name="pu5" >
 
         <java
-            classname="ntbd.projekt.przyp_uz.dodaj_polaczenie"
+            classname="ntbd.projekt.przypadki.ZmianaUprawnien"
             classpathref="lib.classpath"
             fork="true" >
         </java>
     </target>
 	
-	<target name="stare" >
+	<target name="z5" >
 
         <java
-            classname="ntbd.projekt.zestawienia.stare_pociagi"
+            classname="ntbd.projekt.zestawienia.KonduktorzyMieszkajacyNaTrasie"
             classpathref="lib.classpath"
             fork="true" >
         </java>
     </target>
 	
-	<target name="przez_miasto" >
+	<target name="z3" >
 
         <java
-            classname="ntbd.projekt.zestawienia.przez_miasto"
+            classname="ntbd.projekt.zestawienia.MotorniczyMieszkajacyNaTrasie"
             classpathref="lib.classpath"
             fork="true" >
         </java>
     </target>	
 	
-	<target name="mot_na_tra" >
+	<target name="z2" >
 
         <java
-            classname="ntbd.projekt.zestawienia.motorniczy_na_trasie"
+            classname="ntbd.projekt.zestawienia.PolaczniaPrzezMiasto"
             classpathref="lib.classpath"
             fork="true" >
         </java>
     </target>
 
-	<target name="kon_miesz_tra" >
+	<target name="z1" >
 
         <java
-            classname="ntbd.projekt.zestawienia.konduktorzy_mieszkajacy_na_trasie"
+            classname="ntbd.projekt.zestawienia.StarePociagi"
             classpathref="lib.classpath"
             fork="true" >
         </java>
-    </target>		
+    </target>
+	
+	<target name="z4" >
+
+        <java
+            classname="ntbd.projekt.zestawienia.SrednieObciazenie"
+            classpathref="lib.classpath"
+            fork="true" >
+        </java>
+    </target>	
 </project>

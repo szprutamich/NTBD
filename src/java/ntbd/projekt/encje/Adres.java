@@ -67,6 +67,10 @@ public class Adres {
     public void setOsoby(Set<Osoba> osoby) {
         this.osoby = osoby;
     }
+    
+    public void removeOsoba(Osoba o) {
+        osoby.remove(o);
+    }
 
     public void addOsoba(Osoba o) {
         if (osoby == null) {

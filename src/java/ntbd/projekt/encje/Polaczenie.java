@@ -65,6 +65,12 @@ public class Polaczenie {
         }
         konduktorzy.add(k);
     }
+    
+    public void removeKonduktor(Konduktor k) {
+        if (konduktorzy == null) {
+            konduktorzy.remove(k);
+        }
+    }
 
     public void addPrzystanek(Przystanek p) {
         if (przystanki == null) {
@@ -78,6 +84,12 @@ public class Polaczenie {
             pociagi = new HashSet<Pociag>();
         }
         pociagi.add(p);
+    }
+    
+    public void removePociag(Pociag p) {
+        if (pociagi != null) {
+            pociagi.remove(p);
+        }
     }
 
     public String toString() {

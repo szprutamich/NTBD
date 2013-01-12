@@ -1,17 +1,20 @@
 package ntbd.projekt.zestawienia;
 
-import java.io.*;
-import java.util.Date;
-import java.util.Properties;
-import java.util.Iterator;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Properties;
 
-import javax.jdo.*;
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 
-import ntbd.projekt.encje.*;
+import ntbd.projekt.encje.Konduktor;
 
-public class konduktorzy_mieszkajacy_na_trasie {
+public class KonduktorzyMieszkajacyNaTrasie {
 
   private static PersistenceManager pm;
   private static Transaction tx; 
@@ -21,13 +24,13 @@ public class konduktorzy_mieszkajacy_na_trasie {
       pm = getPM();
       tx = pm.currentTransaction();
       
-      WypiszKonduktorow(pm);
+      wypiszKonduktorow(pm);
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
   
-  private static void WypiszKonduktorow(PersistenceManager pm)
+  private static void wypiszKonduktorow(PersistenceManager pm)
   {
       tx = pm.currentTransaction();
         tx.begin();
@@ -51,7 +54,7 @@ public class konduktorzy_mieszkajacy_na_trasie {
   
   private static PersistenceManager getPM() throws IOException	{
 	Properties properties = new Properties();
-	InputStream is=konduktorzy_mieszkajacy_na_trasie.class.getClassLoader().getResourceAsStream("datanucleus.properties");
+	InputStream is=KonduktorzyMieszkajacyNaTrasie.class.getClassLoader().getResourceAsStream("datanucleus.properties");
 	if (is == null) {
 	   throw new FileNotFoundException("Could not find datanucleus.propertiesjpox.properties file that defines the Datanucles persistence setup.");
 	}
