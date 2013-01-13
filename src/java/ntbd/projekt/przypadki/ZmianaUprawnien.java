@@ -48,7 +48,7 @@ public class ZmianaUprawnien {
         if (result.size() > 0) {
             for (Motorniczy r : result)
                 r.setUprawnienia(upr);
-            System.out.println("Zmodyfikowano.");
+            System.out.println("Zmodyfikowano uprawnienia.");
         } else
             System.out
                     .println("Nic nie wybrano. Czy na pewno wybrales motorniczego?");

@@ -23,19 +23,28 @@ public class StarePociagi {
 
     public static void main(String[] args) {
         try {
+            Scanner scan = new Scanner(System.in);
             pm = getPM();
             tx = pm.currentTransaction();
             System.out.println("Podaj maksymalny wiek lokomotywy:");
             int wiek = 0;
-            Scanner w = new Scanner(System.in);
-            wiek = Integer.parseInt(w.nextLine());
+            boolean poprawny = false;
+            do {
+                try {
+                    poprawny = true;
+                    wiek = Integer.parseInt(scan.nextLine());
+                } catch (NumberFormatException e) {
+                    poprawny = false;
+                }
+
+            } while (!poprawny);
             System.out.println("wiek: " + wiek);
             Date d = new Date();
             int obecna_data = 1900 + d.getYear();
             int min_data = obecna_data - wiek;
-
             wyswietlPociagi(pm, min_data);
             pm.close();
+            scan.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,17 +55,18 @@ public class StarePociagi {
         tx = pm.currentTransaction();
         tx.begin();
         Query query = pm.newQuery(Pociag.class);
-        query.setFilter("lokomotywa.rokProdukcji < :data && (wagony.cointains(w) && w.rodzaj != 'towarowy')");
+        query.setFilter("lokomotywa.rokProdukcji < :data && (wagony.contains(w) && w.rodzaj == 'osobowy')");
         List<Pociag> wynik = (List<Pociag>) query.execute(data);
         System.out.println();
         tx.commit();
-        int nr = 1;
+
         if (wynik.size() == 0)
             System.out.println("Nie ma tak starych pociagow.");
         else {
             System.out
                     .println("Pociagi z lokomotywami o roku produkcji sprzed "
                             + data + " roku:");
+            int nr = 1;
             for (Pociag p : wynik) {
                 System.out.println("\t" + nr + ". Pociag numer " + p.getNumer()
                         + " typu " + p.getTyp() + " firmy " + p.getFirma());

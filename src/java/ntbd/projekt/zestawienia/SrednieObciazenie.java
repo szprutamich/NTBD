@@ -4,26 +4,55 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Scanner;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.Transaction;
+
+import ntbd.projekt.encje.Wagon;
 
 public class SrednieObciazenie {
 
     private static PersistenceManager pm;
     private static Transaction tx;
-    
+
     public static void main(String[] args) {
         try {
+            Scanner scan = new Scanner(System.in);
             pm = getPM();
             tx = pm.currentTransaction();
-            //TODO
-            pm.close();
+            System.out.println("Wybierz pierwsze miasto:");
+            String miasto1 = scan.nextLine();
+            System.out.println("Miasto pierwsze: " + miasto1);
+            System.out.println("Wybierz drugie miasto:");
+            String miasto2 = scan.nextLine();
+            System.out.println("Miasto drugie: " + miasto2);
 
+            tx.begin();
+            srednieObciazenie(pm, miasto1, miasto2);
+            tx.commit();
+            scan.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void srednieObciazenie(PersistenceManager pm2,
+            String miasto1, String miasto2) {
+        Query query = pm.newQuery(Wagon.class);
+        query.setFilter("((pociag.polaczenie.skad == :miasto1 && pociag.polaczenie.dokad == :miasto2) || (pociag.polaczenie.skad == :miasto2 && pociag.polaczenie.dokad == :miasto1))");
+        query.setResult("avg(maxObciazenie)");
+        Object wynik = query.execute(miasto1, miasto2);
+        if (wynik == null)
+            System.out
+                    .println("Nie znaleziono wagonow spelniajacych dane wymogi.");
+        else {
+            System.out
+                    .println("Srednie maksymalne obciazenie dla wagonow kursujacych miedzy "
+                            + miasto1 + " a " + miasto2 + " wynosi: " + wynik);
         }
     }
 
@@ -39,5 +68,5 @@ public class SrednieObciazenie {
         PersistenceManagerFactory pmfactory = JDOHelper
                 .getPersistenceManagerFactory(properties);
         return pmfactory.getPersistenceManager();
-    }    
+    }
 }

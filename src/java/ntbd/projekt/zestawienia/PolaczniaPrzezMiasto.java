@@ -22,6 +22,7 @@ public class PolaczniaPrzezMiasto {
 
     public static void main(String[] args) {
         try {
+            Scanner scan = new Scanner(System.in);
             pm = getPM();
             tx = pm.currentTransaction();
             System.out.println("Wybierz typ pociagu:");
@@ -29,13 +30,18 @@ public class PolaczniaPrzezMiasto {
             System.out.println("\t2\tNormalny");
             System.out.println("\t3\tExpress");
             int typ = 0;
+            boolean poprawny = false;
             do {
-                Scanner t = new Scanner(System.in);
-                typ = Integer.parseInt(t.nextLine());
-                if (typ > 4 && typ < 0)
+                try {
+                    poprawny = true;
+                    typ = Integer.parseInt(scan.nextLine());
+                } catch (NumberFormatException e) {
+                    poprawny = false;
+                }
+                if (!poprawny || typ > 3 || typ < 1)
                     System.out
                             .println("Podales nr spoza zakresu. Sprobuj ponownie.");
-            } while (typ > 4 && typ < 0);
+            } while (!poprawny || typ > 3 || typ < 1);
             String typ_poc = "";
             switch (typ) {
             case 1:
@@ -51,12 +57,12 @@ public class PolaczniaPrzezMiasto {
             System.out.println("Wybrany typ pociagu: " + typ_poc);
             System.out.println("Podaj nazwe miasta: ");
             String miasto = "";
-            Scanner m = new Scanner(System.in);
-            miasto = m.nextLine();
-
+            miasto = scan.nextLine();
             System.out.println("Wybrane miasto: " + miasto);
-
+            tx.begin();
             wyszukajPol(pm, miasto, typ_poc);
+            tx.commit();
+            scan.close();
             pm.close();
 
         } catch (Exception e) {
@@ -66,19 +72,17 @@ public class PolaczniaPrzezMiasto {
 
     private static void wyszukajPol(PersistenceManager pm, String miasto,
             String typ) {
-        tx = pm.currentTransaction();
-        tx.begin();
         Query query = pm.newQuery(Polaczenie.class);
-        query.setFilter("((przystanki.contains(p) && p.miasto == ':miasto') || skad == ':miasto' || dokad == ':miasto') && (pociagi.contains(poc) && poc.typ == ':typ')");
+        query.setFilter("((przystanki.contains(p) && p.miasto == :miasto) || skad == :miasto || dokad == :miasto) && (pociagi.contains(poc) && poc.typ == :typ)");
         List<Polaczenie> wynik = (List<Polaczenie>) query.execute(miasto, typ);
         System.out.println();
-        tx.commit();
-        int nr = 1;
+
         if (wynik.size() == 0)
             System.out.println("Nie znaleziono ¿adnego polaczenia.");
         else {
             System.out.println("Pociagi typu " + typ + " przejezdzajace przez "
                     + miasto + ":");
+            int nr = 1;
             for (Polaczenie p : wynik) {
                 System.out.println("\t" + nr + ". Polaczenie z " + p.getSkad()
                         + " do " + p.getDokad() + " typu " + p.getTyp());
@@ -100,5 +104,4 @@ public class PolaczniaPrzezMiasto {
                 .getPersistenceManagerFactory(properties);
         return pmfactory.getPersistenceManager();
     }
-
 }

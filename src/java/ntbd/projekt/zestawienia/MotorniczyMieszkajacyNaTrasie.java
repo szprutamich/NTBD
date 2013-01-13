@@ -22,18 +22,20 @@ public class MotorniczyMieszkajacyNaTrasie {
 
     public static void main(String[] args) {
         try {
+            Scanner scan = new Scanner(System.in);
             pm = getPM();
             tx = pm.currentTransaction();
             System.out.println("Wybierz pierwsze miasto:");
-            Scanner m1 = new Scanner(System.in);
-            String miasto1 = m1.nextLine();
+            String miasto1 = scan.nextLine();
             System.out.println("Miasto pierwsze: " + miasto1);
             System.out.println("Wybierz drugie miasto:");
-            m1 = new Scanner(System.in);
-            String miasto2 = m1.nextLine();
+            String miasto2 = scan.nextLine();
             System.out.println("Miasto drugie: " + miasto2);
 
+            tx.begin();
             polaczeniaMiedzymiastowe(pm, miasto1, miasto2);
+            tx.commit();
+            scan.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,22 +43,19 @@ public class MotorniczyMieszkajacyNaTrasie {
 
     private static void polaczeniaMiedzymiastowe(PersistenceManager pm,
             String miasto1, String miasto2) {
-        tx = pm.currentTransaction();
-        tx.begin();
         Query query = pm.newQuery(Motorniczy.class);
-        query.setFilter("(lokomotywa.pociag.polaczenie.skad == ':miasto1' && lokomotywa.pociag.polaczenie.dokad == ':miasto2') || (lokomotywa.pociag.polaczenie.skad == ':miasto2' && lokomotywa.pociag.polaczenie.dokad == ':miasto1')");
+        query.setFilter("(lokomotywa.pociag.polaczenie.skad == :miasto1 && lokomotywa.pociag.polaczenie.dokad == :miasto2) || (lokomotywa.pociag.polaczenie.skad == :miasto2 && lokomotywa.pociag.polaczenie.dokad == :miasto1)");
         List<Motorniczy> wynik = (List<Motorniczy>) query.execute(miasto1,
                 miasto2);
-        tx.commit();
-        int nr = 1;
         if (wynik.size() == 0)
             System.out
                     .println("Nie znaleziono zadnego motorniczego spelniajacego dane wymogi.");
         else {
             System.out.println("Motorniczy kursujacy miedzy " + miasto1 + " a "
                     + miasto2 + ":");
+            int nr = 1;
             for (Motorniczy m : wynik) {
-                System.out.println("\t" + nr + " " + m.getImie() + " "
+                System.out.println("\t" + nr + "\t" + m.getImie() + " "
                         + m.getNazwisko() + " " + m.getPesel());
                 nr++;
             }
